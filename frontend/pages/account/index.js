@@ -6,7 +6,7 @@ export default function Account({user}) {
     return (
         <div>
         <Navbar/>
-        <Settings image={user.image} firstName={user.firstName} lastName={user.lastName}/>
+        <Settings user={user}/>
         <BottomBar/>
         </div>
     )
