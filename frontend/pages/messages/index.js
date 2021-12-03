@@ -11,11 +11,9 @@ export default function Messages({ user, matches }) {
         <link rel="icon" href="/logo.png" />
       </Head>
       <ProfileBadge user={user} />
-      <Navbar />
-      <div className="bg-main-1 -my-20 py-16 h-screen flex flex-col">
-        <div className="mx-auto w-full p-8 mt-2 text-center shadow-lg">
-          <h1 className="text-2xl font-bold text-main-2">Messages</h1>
-        </div>
+      <Navbar/>
+      <div className="bg-main-1 -my-20 pt-32 h-screen flex flex-col">
+
         <div>
           {matches.map((match) => {
             return (

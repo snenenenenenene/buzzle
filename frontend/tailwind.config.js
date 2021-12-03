@@ -61,3 +61,9 @@ module.exports = {
 // #f8e1e1
 // #f2c4c4
 // #eca7a7
+
+// #6781d9
+// #ffffff
+// #e9edf9
+// #d3dbf4
+// #bdc9ee
