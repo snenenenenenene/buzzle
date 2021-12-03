@@ -3,6 +3,7 @@
 @tailwind utilities;
 
 * {
+  transition: all 0.3s;
 font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 html,

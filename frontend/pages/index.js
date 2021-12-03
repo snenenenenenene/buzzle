@@ -1,5 +1,4 @@
 import Head from "next/head";
-import Login from "./Login";
 import Swiping from "./Swiping";
 import Navbar from "../components/Navbar";
 import BottomBar from "../components/BottomBar";
