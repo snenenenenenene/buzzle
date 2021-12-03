@@ -6,7 +6,6 @@ import { useState } from "react";
 
 export default function Home({user}) {
   // const [image, setImage] = useState(null)
-
   return (
     <div>
       <Head>

@@ -1,9 +1,9 @@
 const Logo = (props) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
-    width={250}
-    height={129}
-    viewBox="0 0 1668 858"
+    width={248}
+    height={128}
+    viewBox="0 0 1664 858"
     className="bg-main-2"
     {...props}
   >

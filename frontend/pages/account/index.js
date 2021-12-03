@@ -3,7 +3,7 @@ import Navbar from "../../components/Navbar";
 import Settings from "../../components/Settings";
 import Head from "next/head";
 
-export default function Account({user}) {
+export default function Account({user, setLoggedIn}) {
     return (
         <div>
              <Head>
@@ -11,7 +11,7 @@ export default function Account({user}) {
         <link rel="icon" href="/logo.png" />
       </Head>
         <Navbar/>
-        <Settings user={user}/>
+        <Settings user={user} setLoggedIn={setLoggedIn}/>
         <BottomBar/>
         </div>
     )

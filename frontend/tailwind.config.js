@@ -12,6 +12,7 @@ module.exports = {
           // 5: '#fcfcfc',
           // "cross": '#000',
           // "check": '#000',
+          // "2-transparent": "#f3a49f22",
           // "5-transparent": '#fcfcfcAA',
           // "3-transparent": '#f6c1beAA',
 
@@ -20,6 +21,7 @@ module.exports = {
           3: "#3539ad",
           4: "#4e25a3",
           5: "#671199",
+          "2-transparent": "#1c4db822",
           "5-transparent": "#671199AA",
           cross: "#efede7",
           check: "#efede7",
