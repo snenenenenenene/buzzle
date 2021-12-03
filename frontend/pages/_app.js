@@ -11,9 +11,18 @@ function Buzzle({ Component, pageProps }) {
 
   const [user, setUser] = useState(
   {
-    "image": image,
+    "images": [
+      image,
+      image,
+    ],
     "firstName": firstName,
-    "lastName": lastName
+    "lastName": lastName,
+    "birthDate": "17/11/2000",
+    "age": 21,
+    "location": {
+      "city":"Antwerp",
+      "country": "Belgium"
+    }
   })
 
   return (
