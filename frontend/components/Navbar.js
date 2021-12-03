@@ -1,16 +1,16 @@
-import React from 'react'
+import Link from 'next/link'
 
 export default function Navbar() {
     return (
-        <header className="bg-main-1 md:sticky top-0 z-10 h-20">
+        <header className="bg-main-1 md:sticky top-0 h-20">
       <div className="flex flex-wrap flex-row items-center">
-        <a className="cursor-pointer mb-0 mx-auto">
-          <a href="/home">
-            <div className="mx-1.5 text-xl flex">
-            <img src="/logo.png" alt="Buzzle" className="h-20"/>
+        <div className="cursor-pointer mb-0 mx-auto">
+            <div className="mx-1.5 text-xl flex h-40">
+            <Link href="/">
+            <img src="/logo.png" alt="Buzzle" className="h-3/4"/>
+            </Link>
             </div>
-          </a>
-        </a>
+        </div>
       </div>
     </header>
     )

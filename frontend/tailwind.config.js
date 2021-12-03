@@ -10,6 +10,7 @@ module.exports = {
           3: '#f6c1be',
           4: '#f9dedd',
           5: '#fcfcfc',
+          "5-transparent": '#fcfcfcAA',
           "3-transparent": '#f6c1beAA',
         },
       }

@@ -1,17 +1,10 @@
-import React from 'react'
+import { useEffect } from "react";
+import { useRouter } from "next/router";
+import HomeBottomBar from "./bottomBar/HomeBottomBar";
+import SettingsBottomBar from "./bottomBar/SettingsBottomBar";
 
 export default function BottomBar() {
-    return (
-        <header className="bg-main-3-transparent backdrop-blur-lg md:sticky bottom-0 z-10 h-20 flex md:justify-center">
-        <a className="mx-auto md:mx-20 title-font font-medium cursor-pointer text-main-5">
-        Matches
-        </a>
-        <a className="mx-auto md:mx-20 title-font font-medium cursor-pointer text-main-1">
-        Home
-        </a>
-        <a className="mx-auto md:mx-20 title-font font-medium cursor-pointer text-main-5">
-        Messages
-        </a>
-    </header>
-    )
+  const { asPath } = useRouter();
+  const settings = asPath === "/account";
+  return <div>{settings ? <SettingsBottomBar /> : <HomeBottomBar />}</div>;
 }
