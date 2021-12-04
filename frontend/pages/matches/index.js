@@ -1,5 +1,6 @@
 import Head from "next/head";
 import BottomBar from "../../components/BottomBar";
+import Deck from "../../components/Deck";
 import Navbar from "../../components/Navbar";
 import ProfileBadge from "../../components/ProfileBadge";
 
@@ -18,7 +19,6 @@ export default function Matches({ user, matches }) {
           <h2 className="text-2xl font-bold text-main-2">
             {user.location.city}, {user.location.country}
           </h2>
-          <div></div>
         </div>
       </div>
       <BottomBar />
