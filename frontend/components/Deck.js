@@ -1,10 +1,10 @@
 import { useRef, useEffect, useState, Children } from "react";
 import { motion, useMotionValue, useAnimation } from "framer-motion";
-import Image from "next/image";
 
-export const Stack = ({ onVote, children, ...props }) => {
+export const Stack = ({ onVote, children, swipeRight, ...props }) => {
   const [stack, setStack] = useState(Children.toArray(children));
 
+  console.log(swipeRight)
   const pop = (array) => {
     return array.filter((_, index) => {
       return index < array.length - 1;
@@ -18,11 +18,15 @@ export const Stack = ({ onVote, children, ...props }) => {
   };
 
   return (
-    <div className="mx-auto my-5 h-2/3 xl:w-4/12 lg:w-5/12 md:w-6/12 w-11/12 flex justify-center relative" {...props}>
+    <div
+      className="mx-auto my-5 h-2/3 xl:w-4/12 lg:w-5/12 md:w-6/12 w-11/12 flex justify-center relative"
+      {...props}
+    >
       {stack.map((item, index) => {
         let isTop = index === stack.length - 1;
         return (
           <Card
+            swipeRight={swipeRight}
             drag={isTop}
             key={item.key || index}
             onVote={(result) => handleVote(item, result)}
@@ -35,25 +39,21 @@ export const Stack = ({ onVote, children, ...props }) => {
   );
 };
 
-export const Card = ({ children, style, onVote, id, ...props }) => {
+export const Card = ({ children, style, onVote, id, swipeRight, ...props }) => {
   const cardElem = useRef(null);
-
   const x = useMotionValue(0);
   const controls = useAnimation();
-
   const [constrained, setConstrained] = useState(true);
-
   const [direction, setDirection] = useState();
-
   const [velocity, setVelocity] = useState();
 
   const getVote = (childNode, parentNode) => {
     const childRect = childNode.getBoundingClientRect();
     const parentRect = parentNode.getBoundingClientRect();
     let result =
-      parentRect.left >= childRect.right
+      parentRect.left >= childRect.right - 450
         ? false
-        : parentRect.right <= childRect.left
+        : parentRect.right <= childRect.left + 450
         ? true
         : undefined;
     return result;
@@ -77,6 +77,10 @@ export const Card = ({ children, style, onVote, id, ...props }) => {
         ? -parentWidth / 2 - childWidth / 2
         : parentWidth / 2 + childWidth / 2;
     };
+
+    if (swipeRight) {
+      flyAway
+    }
 
     if (direction && Math.abs(velocity) > min) {
       setConstrained(false);
@@ -102,12 +106,12 @@ export const Card = ({ children, style, onVote, id, ...props }) => {
       className="absolute flex h-full w-full"
       animate={controls}
       dragConstraints={constrained && { left: 0, right: 0, top: 0, bottom: 0 }}
-      dragElastic={1}
+      dragElastic={0.5}
       ref={cardElem}
       style={{ x }}
       onDrag={getTrajectory}
       onDragEnd={() => flyAway(10)}
-      whileTap={{ scale: 1.1 }}
+      whileTap={{ scale: 1.05 }}
       {...props}
     >
       {children}
@@ -115,50 +119,61 @@ export const Card = ({ children, style, onVote, id, ...props }) => {
   );
 };
 
-export default function Deck({ possibleMatches }) {
+export default function Deck({ possibleMatches, swipeRight }) {
   return (
-    <Stack onVote={(item, vote) => console.log(item.props, vote)}>
-      {possibleMatches.map((user) => {
-        return (
-          <div
-            className="bg-white flex align-middle justify-center text-2xl shadow-2xl rounded-2xl overflow-hidden"
-          >
-            <Image src={user.images[0]} className="no-drag" width="1000" height="100" />
-            <div className="absolute bottom-5 left-5 p-1 text-main-1 font-bold">
-              <h1 className="text-4xl">
-                {user.firstName} {user.lastName}
-              </h1>
-              <h1 className="text-2xl">{user.age}</h1>
-              <h1 className="text-2xl text-main-2">{user.house}</h1>
-            </div>
-            <div className="absolute left-1">
-            {user.interests.films.map((interest) =>
-            {
-                return (
+    <Stack onVote={(item, vote) => console.log(item.props, vote)}
+    swipeRight={swipeRight}
+    >
+      {possibleMatches === [] ? (
+        <div className="bg-white flex align-middle justify-center text-2xl shadow-2xl rounded-2xl overflow-hidden object-cover transform rotate-0">
+          No Users Left
+        </div>
+      ) : (
+        possibleMatches.map((user) => {
+          return (
+            <Card
+              className="bg-white flex align-middle justify-center text-2xl shadow-2xl rounded-2xl overflow-hidden object-cover transform rotate-0 cursor-pointer"
+              key={user.id}
+              swipeRight={swipeRight}
+            >
+              <img
+                src={user.images[0]}
+                className="no-drag object-cover"
+                width="1000"
+                height="100"
+              />
+              <div className="absolute bottom-5 left-5 p-1 text-main-1 font-bold">
+                <h1 className="text-4xl">
+                  {user.firstName} {user.lastName}
+                </h1>
+                <h1 className="text-2xl">{user.age}</h1>
+                <h1 className="text-2xl text-main-2">{user.house}</h1>
+              </div>
+              <div className="absolute left-1">
+                {user.interests.films.map((interest) => {
+                  return (
                     <div>
-                        <div className="bg-main-3-transparent my-1 p-1">
-                          <p className="text-white">{interest}</p>
-                        </div>
+                      <div className="bg-main-3-transparent my-1 p-1 ">
+                        <p className="text-white">{interest}</p>
+                      </div>
                     </div>
-                )
-            }
-            )}
-            {user.interests.games.map((interest) =>
-            {
-              console.log(interest)
-                return (
+                  );
+                })}
+                {user.interests.games.map((interest) => {
+                  console.log(interest);
+                  return (
                     <div>
-                        <div className="bg-main-2 my-1 p-1">
-                          <p className="text-white">{interest}</p>
-                        </div>
+                      <div className="bg-main-2 my-1 p-1">
+                        <p className="text-white">{interest}</p>
+                      </div>
                     </div>
-                )
-            }
-            )}
-            </div>
-          </div>
-        );
-      })}
+                  );
+                })}
+              </div>
+            </Card>
+          );
+        })
+      )}
     </Stack>
   );
 }
