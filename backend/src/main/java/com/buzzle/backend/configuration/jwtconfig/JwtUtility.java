@@ -1,4 +1,4 @@
-package com.buzzle.backend.configuration;
+package com.buzzle.backend.configuration.jwtconfig;
 
 import java.io.Serializable;
 import java.util.Base64;
@@ -13,8 +13,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Component;
 
-//import com.bavostepbros.leap.domain.model.Role;
-//import com.bavostepbros.leap.domain.model.dto.BasicRoleDto;
+import com.buzzle.backend.domain.model.Role;
+import com.buzzle.backend.domain.model.dto.BasicRoleDto;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -37,10 +37,11 @@ public class JwtUtility implements Serializable {
     }
 
 
-    public String createToken(String username) {
-//        BasicRoleDto basicRole = new BasicRoleDto(role.getRoleId(), role.getRoleName());
+    public String createToken(String username, Role role) {
+        BasicRoleDto basicRole = new BasicRoleDto(role.getRoleId(), role.getRoleName());
         Claims claims = Jwts.claims().setSubject(username);
         claims.put("auth", basicRole);
+        claims.put("auth", username);
 
         Date now = new Date();
         System.out.println(now);

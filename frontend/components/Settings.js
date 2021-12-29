@@ -42,7 +42,10 @@ export default function Settings({ user, setLoggedIn }) {
       <div className="mt-80 mb-5 z-10">
         <button
           className="w-40 h-16 text-main-1 rounded-xl text-main-3 hover:bg-main-2 hover:text-main-1"
-          onClick={() => setLoggedIn(false)}
+          onClick={() => {
+            localStorage.removeItem('jwt')
+            setLoggedIn(false)
+          }}
         >
           LOG OUT
         </button>

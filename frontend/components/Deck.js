@@ -1,10 +1,12 @@
 import { useRef, useEffect, useState, Children } from "react";
 import { motion, useMotionValue, useAnimation } from "framer-motion";
 
-export const Stack = ({ onVote, children, swipeRight, ...props }) => {
+export const Stack = ({ onVote,swipeRight,itemStack, children, ...props }) => {
   const [stack, setStack] = useState(Children.toArray(children));
 
-  console.log(swipeRight)
+  itemStack = stack
+  props.handleItemStack(itemStack);
+
   const pop = (array) => {
     return array.filter((_, index) => {
       return index < array.length - 1;
@@ -32,6 +34,7 @@ export const Stack = ({ onVote, children, swipeRight, ...props }) => {
             onVote={(result) => handleVote(item, result)}
           >
             {item}
+            <button onClick={() => handleVote(item, false)}>SOep</button>
           </Card>
         );
       })}
@@ -119,10 +122,13 @@ export const Card = ({ children, style, onVote, id, swipeRight, ...props }) => {
   );
 };
 
-export default function Deck({ possibleMatches, swipeRight }) {
+export default function Deck({ possibleMatches, handleVote, ...props }) {
+  const [itemStack, setItemStack] = useState([])
+  props.handleItemStack(itemStack);
+
   return (
     <Stack onVote={(item, vote) => console.log(item.props, vote)}
-    swipeRight={swipeRight}
+    handleVote={handleVote} handleItemStack={setItemStack}
     >
       {possibleMatches === [] ? (
         <div className="bg-white flex align-middle justify-center text-2xl shadow-2xl rounded-2xl overflow-hidden object-cover transform rotate-0">
@@ -134,7 +140,6 @@ export default function Deck({ possibleMatches, swipeRight }) {
             <Card
               className="bg-white flex align-middle justify-center text-2xl shadow-2xl rounded-2xl overflow-hidden object-cover transform rotate-0 cursor-pointer"
               key={user.id}
-              swipeRight={swipeRight}
             >
               <img
                 src={user.images[0]}
@@ -160,7 +165,6 @@ export default function Deck({ possibleMatches, swipeRight }) {
                   );
                 })}
                 {user.interests.games.map((interest) => {
-                  console.log(interest);
                   return (
                     <div>
                       <div className="bg-main-2 my-1 p-1">

@@ -1,4 +1,4 @@
-package com.bavostepbros.leap.configuration;
+package com.buzzle.backend.configuration;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -16,7 +16,7 @@ public class EmailConfiguration {
 
     private Integer mailServerPort = 587;
 
-    private String mailServerUsername = "leapgroep5@gmail.com";
+    private String mailServerUsername = "sennebels@gmail.com";
 
     private String mailServerPassword = "ydjxrftfbqtgzgmu";
 

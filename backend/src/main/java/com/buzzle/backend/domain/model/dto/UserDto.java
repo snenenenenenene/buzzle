@@ -1,4 +1,4 @@
-package com.bavostepbros.leap.domain.model.dto;
+package com.buzzle.backend.domain.model.dto;
 
 import java.util.Set;
 
